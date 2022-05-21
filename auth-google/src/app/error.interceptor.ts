@@ -20,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 401) {
         alert('UnAuthurized user');
-          this.authService.SignOut();
+          // this.authService.SignOut();
       }
 
       const error = err.error.message || err.statusText;

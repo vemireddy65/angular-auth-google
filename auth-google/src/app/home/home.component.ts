@@ -1,29 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { HomeService } from './home.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  title = 'ng-guard';
 
+  @ViewChild('closeModal') closeModal!: ElementRef;
 
-  data:any;
-  constructor(
-    private home:HomeService,
-    private authServicve:AuthService
-  ) { }
+  isLoggedIn = false;
 
+  constructor() {
+    this.isLoggedIn = false;
+  }
   ngOnInit(): void {
-    this.home.getData().subscribe(res=>{
-      console.log(res);
-      this.data=res;
-    })
-  }
-  logout(){
-    this.authServicve.SignOut();
   }
 
+
+  loginAsUser() {
+    this.isLoggedIn = true;
+  }
+
+  loginAsAdmin() {
+    console.log('Login As aDmin');
+    this.isLoggedIn = true;
+    this.closeModal.nativeElement.click();
+
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+  }
 }
